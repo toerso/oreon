@@ -19,7 +19,7 @@ class Rules {
     cssRuleServer() {
         return {
             test:/\.css$/,
-            use: ["css-loader"],
+            use:[MiniCssExtractPlugin.loader,'css-loader'],
             type: 'asset/source'
         }
     }
@@ -36,8 +36,8 @@ class Rules {
             test: /\.(png|jpe?g|svg|gif)$/i,
             type: "asset/resource",
             generator: {
-                //emit: false //for not getting output image in ssr
-                filename: '../view/images/croxo.[name].[contenthash][ext]'
+                outputPath: '../../public/', //This property helps to emit the file to desire output folder relative to the current output path
+                filename: 'assets/images/croxo.[name].[contenthash][ext]'
             }
         }
     }

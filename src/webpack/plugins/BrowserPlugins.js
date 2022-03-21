@@ -1,12 +1,17 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 const File = require('../File');
+const CommonPlugins = require('./CommonPlugins');
 
 //BrowserPlugins means client side
 
 class BrowserPlugins {
+    #CommonPluginsObj;
+
     constructor() {
         this.plugins = [];
+        this.#CommonPluginsObj = new CommonPlugins();
         this.file = new File();
     }
 

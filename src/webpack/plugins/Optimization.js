@@ -9,11 +9,12 @@ class Optimization {
         this.optimaization.splitChunks = {
             chunks: 'all',
             minSize: 20000,
+            maxSize: 100000,
             minRemainingSize: 0,
             minChunks: 1,
             maxAsyncRequests: 30,
             maxInitialRequests: 30,
-            enforceSizeThreshold: 50000,
+            enforceSizeThreshold: 100000,
         };
 
         this.optimaization.splitChunks.cacheGroups = this.cacheGroups();
@@ -37,7 +38,7 @@ class Optimization {
             name: 'react&dom',
             filename: 'js/oreon.[name].[contenthash].js',
             chunks: 'all',
-            reuseExistingChunk: true
+            reuseExistingChunk: true,
         }
     }
 

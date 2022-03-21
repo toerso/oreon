@@ -1,27 +1,54 @@
 const WebpackConfig = require('./WebpackConfig');
 
 class SsrConfig {
+    #Mode;
+    #EntryPath;
+    #OutputPath;
+    #Host;
+    #SsrConfiguration;
+
     constructor() {
-        this.serverSideConfig = new WebpackConfig();
+        this.#SsrConfiguration = new WebpackConfig();
+        this.#Mode = 'development';
+        this.#Host = "http://localhost:5050"
     }
 
     set(ssp, sop) {
-        this.serverFilePath = ssp;
-        this.serverOutputPath = sop;
+        this.#EntryPath = ssp;
+        this.#OutputPath = sop;
+
+        return this;
+    }
+
+    setMode(mode) {
+        this.#Mode = mode;
+
+        return this;
+    }
+
+    setHost(host) {
+        this.#Host = host;
 
         return this;
     }
 
     run() {
-        this.serverSideConfig.mode("development");
-        this.serverSideConfig.target("node");
-        this.serverSideConfig.name("server");
-        this.serverSideConfig.entry(this.serverFilePath);
-        this.serverSideConfig.serverOutput(this.serverOutputPath, true);
-        this.serverSideConfig.serverModules();
-        this.serverSideConfig.resolve(['.js', '.jsx', '.ts', '.tsx']);
+        //Exclude public dir from bop to set public path
+        const dirname = '/'; // it might be changed..... //for public path
 
-        return this.serverSideConfig.webpackConfig;
+        //configuration of webpack for client side
+        this.#SsrConfiguration.mode(this.#Mode);
+        this.#SsrConfiguration.target("node");
+        this.#SsrConfiguration.name("server");
+        this.#SsrConfiguration.devTool();
+        this.#SsrConfiguration.publicPath(this.#Host, dirname);
+        this.#SsrConfiguration.entry(this.#EntryPath);
+        this.#SsrConfiguration.serverOutput(this.#OutputPath, true);
+        this.#SsrConfiguration.serverModules();
+        this.#SsrConfiguration.serverPlugins();
+        this.#SsrConfiguration.resolve(['.js', '.jsx', '.ts', '.tsx']);
+
+        return this.#SsrConfiguration.webpackConfig;
     }
 }
 

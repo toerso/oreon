@@ -6,11 +6,17 @@ const ServerModules = require('./modules/ServerModules');
 const Optimization = require('./plugins/Optimization');
 
 class WebpackConfig {
+    #PublicPath;
+    #Hash;
+    #ServerPluginObj;
+
     constructor() {
         this.webpackConfig = {};
-        this.contenthash = 'contenthash'
+        this.#Hash = 'contenthash';
+        this.#PublicPath = '/';
         this.file = new File();
         this.browserPluginsObj = new BrowserPlugins();
+        this.#ServerPluginObj = new ServerPlugins();
         this.browserModulesObj = new BrowserModules();
         this.serverModulesObj = new ServerModules();
         this.optimizationObj = new Optimization();
@@ -26,6 +32,15 @@ class WebpackConfig {
 
     name(name) {
         if(!this.webpackConfig.hasOwnProperty('name')) this.webpackConfig.name = name;
+    }
+
+
+    publicPath(hostname, dir) {
+        this.#PublicPath = `${hostname}${dir}`;
+    }
+
+    devTool() {
+        this.webpackConfig.devtool = this.webpackConfig.mode === "development" ? "eval" : 'none';
     }
 
     entry(filepath) {
@@ -47,10 +62,10 @@ class WebpackConfig {
         if(this.webpackConfig.target !== "web") throw Error("Target must be web :_(");
 
         this.webpackConfig.output = {
-            publicPath: 'view/',
+            publicPath: this.#PublicPath,
             path: outputPath,
-            filename: `js/oreonnyx.[name].[${this.contenthash}].js`,
-            assetModuleFilename: `images/croxo.[name].[${this.contenthash}][ext]`,
+            filename: `js/oreonnyx.[name].[${this.#Hash}].js`,
+            assetModuleFilename: `images/croxo.[name].[${this.#Hash}][ext]`,
             clean: !!clean
         }
     }
@@ -61,7 +76,7 @@ class WebpackConfig {
         if(this.webpackConfig.target !== "node") throw Error("Target must be node :_(");
 
         this.webpackConfig.output = {
-            publicPath: '/',
+            publicPath: this.#PublicPath,
             path: outputPath,
             filename: `server.js`,
             clean: !!clean
@@ -107,8 +122,13 @@ class WebpackConfig {
         this.webpackConfig.plugins = this.browserPluginsObj.plugins;
     }
 
-    //code splitting.............................
+    serverPlugins() {
+        this.browserPluginsObj.miniCssExtractPlugin({filename: 'css/oreonnyx.[name].[contenthash].css'});
 
+        this.webpackConfig.plugins = this.browserPluginsObj.plugins;
+    };
+
+    //code splitting.............................
     optimization() {
         this.optimizationObj.splitChunk();
 

@@ -68,14 +68,14 @@ class Nyx {
     async execute(cmd, mode="prod", options= {}) {
         const name = cmd.name();
         let cmdScript = null;
-
+        // console.log(`Options: ${options.watch}`);
         //this will help us to create spinner
         const optns = {
             cmdname: name,
             mode: mode,
-            watch: options.hasOwnProperty('watch')
+            watch: options.watch
         }
-
+        //console.log(optns);
         //checking command
         if (name === "build") {
             this.browserCmdSript.push("webpack", "--config", this.browScriptFile);
