@@ -46,6 +46,7 @@ class SsrConfig {
         this.#SsrConfiguration.serverOutput(this.#OutputPath, true);
         this.#SsrConfiguration.serverModules();
         this.#SsrConfiguration.serverPlugins();
+        //this.#SsrConfiguration.externals();
         this.#SsrConfiguration.resolve(['.js', '.jsx', '.ts', '.tsx']);
 
         return this.#SsrConfiguration.webpackConfig;

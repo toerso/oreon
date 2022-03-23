@@ -28,6 +28,11 @@ class BrowserModules {
         this.rules.push(this.rulesObj.imageFilesRule());
         this.module.rules = this.rules;
     }
+
+    setupFonts() {
+        this.rules.push(this.rulesObj.fontRule());
+        this.module.rules = this.rules;
+    }
 }
 
 module.exports = BrowserModules;

@@ -4,11 +4,13 @@ const ServerPlugins = require('./plugins/ServerPlugins');
 const BrowserModules = require('./modules/BrowserModules');
 const ServerModules = require('./modules/ServerModules');
 const Optimization = require('./plugins/Optimization');
+const Extra = require('./Extra');
 
 class WebpackConfig {
     #PublicPath;
     #Hash;
     #ServerPluginObj;
+    #ExtraObj
 
     constructor() {
         this.webpackConfig = {};
@@ -20,6 +22,7 @@ class WebpackConfig {
         this.browserModulesObj = new BrowserModules();
         this.serverModulesObj = new ServerModules();
         this.optimizationObj = new Optimization();
+        this.#ExtraObj = new Extra();
     }
 
     mode(mode) {
@@ -69,7 +72,6 @@ class WebpackConfig {
             clean: !!clean
         }
     }
-
     async serverOutput(path, clean) {
         const outputPath = this.file.resolve_path(path);
 
@@ -88,7 +90,7 @@ class WebpackConfig {
         this.browserModulesObj.setupBabel();
         this.browserModulesObj.setupCss();
         this.browserModulesObj.setupImageFile();
-
+        this.browserModulesObj.setupFonts();
         this.webpackConfig.module = this.browserModulesObj.module;
     }
 
@@ -98,7 +100,7 @@ class WebpackConfig {
         this.serverModulesObj.setupBabel();
         this.serverModulesObj.setupCss();
         this.serverModulesObj.setupImageFile();
-
+        this.serverModulesObj.setupFont();
         this.webpackConfig.module = this.serverModulesObj.module;
     }
 
@@ -123,9 +125,7 @@ class WebpackConfig {
     }
 
     serverPlugins() {
-        this.browserPluginsObj.miniCssExtractPlugin({filename: 'css/oreonnyx.[name].[contenthash].css'});
-
-        this.webpackConfig.plugins = this.browserPluginsObj.plugins;
+        this.webpackConfig.plugins = this.#ServerPluginObj.miniCssExtractPlugin({filename: 'css/oreonnyx.[name].[contenthash].css'}).plugins;
     };
 
     //code splitting.............................
@@ -134,6 +134,10 @@ class WebpackConfig {
 
         //get full optimization property
         this.webpackConfig.optimization = this.optimizationObj.optimaization;
+    }
+
+    externals() {
+        this.webpackConfig.externals = [this.#ExtraObj.nodeExternals()];
     }
 
     resolve(extns) {

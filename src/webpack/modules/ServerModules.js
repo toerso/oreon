@@ -28,6 +28,11 @@ class ServerModules {
         this.rules.push(this.rulesObj.imageFileRuleSsr());
         this.module.rules = this.rules;
     }
+
+    setupFont() {
+        this.rules.push(this.rulesObj.fontRuleSsr());
+        this.module.rules = this.rules;
+    }
 }
 
 module.exports = ServerModules;
