@@ -1,32 +1,33 @@
 
-const path = require('path');
-const fs = require('fs');
-
 
 class CommonConfig {
-    Extensions = ['.js', '.jsx', '.ts', '.tsx'];
-    regexHtml = /\.html$/;
+    mode;
+    entryPath;
+    outputPath;
+    host;
 
-    constructor() {
-        this.webpackCommon = {}
+    constructor(mode, host) {
+        this.mode = mode;
+        this.host = host;
     }
 
-    resolve() {
-        return {extensions: this.Extensions};
+    set(ep, op) {
+        this.entryPath = ep;
+        this.outputPath = op;
+
+        return this;
     }
 
-    webpackCommonConfig() {
-        return {
-            module: {
-                rules: [
-                    {
-                        test: this.regexHtml,
-                        use: ['html-loader']
-                    }
-                ]
-            },
-            resolve: this.resolve()
-        }
+    setMode(mode) {
+        this.mode = mode;
+
+        return this;
+    }
+
+    setHost(host) {
+        this.host = host;
+
+        return this;
     }
 }
 

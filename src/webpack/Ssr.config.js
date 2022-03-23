@@ -1,35 +1,12 @@
 const WebpackConfig = require('./WebpackConfig');
+const CommonConfig = require('./Common.config');
 
-class SsrConfig {
-    #Mode;
-    #EntryPath;
-    #OutputPath;
-    #Host;
+class SsrConfig extends  CommonConfig{
     #SsrConfiguration;
 
     constructor() {
+        super('development', "http://localhost:5050")
         this.#SsrConfiguration = new WebpackConfig();
-        this.#Mode = 'development';
-        this.#Host = "http://localhost:5050"
-    }
-
-    set(ssp, sop) {
-        this.#EntryPath = ssp;
-        this.#OutputPath = sop;
-
-        return this;
-    }
-
-    setMode(mode) {
-        this.#Mode = mode;
-
-        return this;
-    }
-
-    setHost(host) {
-        this.#Host = host;
-
-        return this;
     }
 
     run() {
@@ -37,16 +14,15 @@ class SsrConfig {
         const dirname = '/'; // it might be changed..... //for public path
 
         //configuration of webpack for client side
-        this.#SsrConfiguration.mode(this.#Mode);
+        this.#SsrConfiguration.mode(this.mode);
         this.#SsrConfiguration.target("node");
         this.#SsrConfiguration.name("server");
         this.#SsrConfiguration.devTool();
-        this.#SsrConfiguration.publicPath(this.#Host, dirname);
-        this.#SsrConfiguration.entry(this.#EntryPath);
-        this.#SsrConfiguration.serverOutput(this.#OutputPath, true);
+        this.#SsrConfiguration.publicPath(this.host, dirname);
+        this.#SsrConfiguration.entry(this.entryPath);
+        this.#SsrConfiguration.serverOutput(this.outputPath, true);
         this.#SsrConfiguration.serverModules();
         this.#SsrConfiguration.serverPlugins();
-        //this.#SsrConfiguration.externals();
         this.#SsrConfiguration.resolve(['.js', '.jsx', '.ts', '.tsx']);
 
         return this.#SsrConfiguration.webpackConfig;
