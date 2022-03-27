@@ -15,12 +15,12 @@ class ServerModules {
     }
 
     setupCss() {
-        this.rules.push(this.rulesObj.cssRuleServer());
+        this.rules.push(this.rulesObj.cssRuleSsr());
         this.module.rules = this.rules;
     }
 
     setupSass() {
-        this.rules.push(this.rulesObj.sassRuleServer());
+        this.rules.push(this.rulesObj.sassRuleSsr());
         this.module.rules = this.rules;
     }
 
@@ -36,6 +36,16 @@ class ServerModules {
 
     setupFont() {
         this.rules.push(this.rulesObj.fontRuleSsr());
+        this.module.rules = this.rules;
+    }
+
+    setupAudio() {
+        this.rules.push(this.rulesObj.audioRuleSsr());
+        this.module.rules = this.rules;
+    }
+
+    setupVideo() {
+        this.rules.push(this.rulesObj.videoRuleSsr());
         this.module.rules = this.rules;
     }
 }

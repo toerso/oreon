@@ -15,7 +15,7 @@ class Rules {
         }
     }
 
-    cssRuleBrowser() {
+    cssRuleCsr() {
         return {
             test:/\.css$/,
             use:[MiniCssExtractPlugin.loader, {
@@ -31,7 +31,7 @@ class Rules {
         }
     }
 
-    cssRuleServer() {
+    cssRuleSsr() {
         return {
             test:/\.css$/,
             use:[{
@@ -54,14 +54,14 @@ class Rules {
         }
     }
 
-    sassRuleBrowser() {
+    sassRuleCsr() {
         return  {
             test: /\.s[ac]ss$/i,
             use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
         }
     }
 
-    sassRuleServer() {
+    sassRuleSsr() {
         return  {
             test: /\.s[ac]ss$/i,
             use: [{
@@ -73,34 +73,34 @@ class Rules {
         }
     }
 
-    imageFilesRule() {
-        const {regex, filename} = this.#HelperObj.image();
+    imageFilesRuleCsr() {
+        const {regex, type, filename} = this.#HelperObj.image();
 
         return {
             test: regex,
-            type: this.#HelperObj.type.assetResource
+            type: type
         }
     }
 
     imageFileRuleSsr() {
-        const {regex, filename} = this.#HelperObj.image();
+        const {regex, type, filename} = this.#HelperObj.image();
 
         return {
             test: regex,
-            type: this.#HelperObj.type.assetResource,
+            type: type,
             generator: {
-                outputPath: '../../public/assets', //This property helps to emit the file to desire output folder relative to the current output path
-                filename: filename
+                outputPath: '../../public/', //This property helps to emit the file to desire output folder relative to the current output path
+                filename: `assets/${filename}`
             }
         }
     }
 
-    fontRule() {
-        const {regex, filename} = this.#HelperObj.font();
+    fontRuleCsr() {
+        const {regex, type, filename} = this.#HelperObj.font();
 
         return {
             test: regex,
-            type: this.#HelperObj.type.assetResource,
+            type: type,
             generator: {
                 filename: filename
             }
@@ -108,17 +108,66 @@ class Rules {
     }
 
     fontRuleSsr() {
-        const {regex, filename} = this.#HelperObj.font();
+        const {regex, type, filename} = this.#HelperObj.font();
 
         return {
             test: regex,
-            type: this.#HelperObj.type.assetResource,
+            type: type,
             generator: {
-                outputPath: '../../public/assets',
+                outputPath: '../../public/',
+                filename: `assets/${filename}`
+            }
+        }
+    }
+
+    audioRuleCsr() {
+        const {regex, type, filename} = this.#HelperObj.audio();
+
+        return {
+            test: regex,
+            type: type,
+            generator: {
+               filename: filename
+            }
+        }
+    }
+
+    audioRuleSsr() {
+        const {regex, type, filename} = this.#HelperObj.audio();
+
+        return {
+            test: regex,
+            type: type,
+            generator: {
+                emit: false
+            }
+        }
+    }
+
+    videoRuleCsr() {
+        const {regex, type, filename} = this.#HelperObj.video();
+
+        return {
+            test: regex,
+            type: type,
+            generator: {
                 filename: filename
             }
         }
     }
+
+    videoRuleSsr() {
+        const {regex, type} = this.#HelperObj.video();
+
+        return {
+            test: regex,
+            type: type,
+            generator: {
+                emit: false
+            }
+        }
+    }
+
 }
 
 module.exports = Rules;

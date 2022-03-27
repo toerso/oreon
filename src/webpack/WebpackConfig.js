@@ -91,7 +91,9 @@ class WebpackConfig {
         this.browserModulesObj.setupCss();
         this.browserModulesObj.setupSass();
         this.browserModulesObj.setupImageFile();
-        this.browserModulesObj.setupFonts();
+        this.browserModulesObj.setupFont();
+        this.browserModulesObj.setupAudio();
+        this.browserModulesObj.setupVideo();
         this.webpackConfig.module = this.browserModulesObj.module;
     }
 
@@ -103,6 +105,8 @@ class WebpackConfig {
         this.serverModulesObj.setupSass();
         this.serverModulesObj.setupImageFile();
         this.serverModulesObj.setupFont();
+        this.serverModulesObj.setupAudio();
+        this.serverModulesObj.setupVideo();
         this.webpackConfig.module = this.serverModulesObj.module;
     }
 

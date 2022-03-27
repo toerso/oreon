@@ -20,22 +20,32 @@ class BrowserModules {
     }
 
     setupCss() {
-        this.rules.push(this.rulesObj.cssRuleBrowser());
+        this.rules.push(this.rulesObj.cssRuleCsr());
         this.module.rules = this.rules;
     }
 
     setupSass() {
-        this.rules.push(this.rulesObj.sassRuleBrowser());
+        this.rules.push(this.rulesObj.sassRuleCsr());
         this.module.rules = this.rules;
     }
 
     setupImageFile() {
-        this.rules.push(this.rulesObj.imageFilesRule());
+        this.rules.push(this.rulesObj.imageFilesRuleCsr());
         this.module.rules = this.rules;
     }
 
-    setupFonts() {
-        this.rules.push(this.rulesObj.fontRule());
+    setupFont() {
+        this.rules.push(this.rulesObj.fontRuleCsr());
+        this.module.rules = this.rules;
+    }
+
+    setupAudio() {
+        this.rules.push(this.rulesObj.audioRuleCsr());
+        this.module.rules = this.rules;
+    }
+
+    setupVideo() {
+        this.rules.push(this.rulesObj.videoRuleCsr());
         this.module.rules = this.rules;
     }
 }
