@@ -25,7 +25,7 @@ class WebpackConfig {
         this.#ExtraObj = new Extra();
     }
 
-    mode(mode) {
+    mode(mode="production") {
         if(!this.webpackConfig.hasOwnProperty('mode')) this.webpackConfig.mode = mode;
     }
 
@@ -89,16 +89,18 @@ class WebpackConfig {
         this.browserModulesObj.setupHtml();
         this.browserModulesObj.setupBabel();
         this.browserModulesObj.setupCss();
+        this.browserModulesObj.setupSass();
         this.browserModulesObj.setupImageFile();
         this.browserModulesObj.setupFonts();
         this.webpackConfig.module = this.browserModulesObj.module;
     }
 
-    //server modules goes here---------------
+    //runtime modules goes here---------------
     serverModules() {
         this.serverModulesObj.setupHtml();
         this.serverModulesObj.setupBabel();
         this.serverModulesObj.setupCss();
+        this.serverModulesObj.setupSass();
         this.serverModulesObj.setupImageFile();
         this.serverModulesObj.setupFont();
         this.webpackConfig.module = this.serverModulesObj.module;
@@ -133,7 +135,7 @@ class WebpackConfig {
         this.optimizationObj.splitChunk();
 
         //get full optimization property
-        this.webpackConfig.optimization = this.optimizationObj.optimaization;
+        this.webpackConfig.optimization = this.optimizationObj.optimization;
     }
 
     externals() {

@@ -19,6 +19,11 @@ class ServerModules {
         this.module.rules = this.rules;
     }
 
+    setupSass() {
+        this.rules.push(this.rulesObj.sassRuleServer());
+        this.module.rules = this.rules;
+    }
+
     setupHtml() {
         this.rules.push(this.rulesObj.htmlRule());
         this.module.rules = this.rules;

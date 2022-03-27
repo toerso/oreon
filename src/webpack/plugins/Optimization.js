@@ -2,11 +2,11 @@
 
 class Optimization {
     constructor() {
-        this.optimaization = {runtimeChunk: 'single'};
+        this.optimization = {runtimeChunk: 'single'};
     }
 
     splitChunk() {
-        this.optimaization.splitChunks = {
+        this.optimization.splitChunks = {
             chunks: 'all',
             minSize: 20000,
             maxSize: 100000,
@@ -17,42 +17,43 @@ class Optimization {
             enforceSizeThreshold: 100000,
         };
 
-        this.optimaization.splitChunks.cacheGroups = this.cacheGroups();
+        this.optimization.splitChunks.cacheGroups = this.#cacheGroups();
     }
 
-    cacheGroups() {
+    #cacheGroups() {
         const cacheGrps = {default: false};
 
-        cacheGrps.reactAndDom = this.ckgReactAndDom();
-        cacheGrps.reactBootstrap = this.ckgReactBootstrap();
-        cacheGrps.bootstrap = this.ckgBootstrap();
-        cacheGrps.mui = this.ckgMui();
-        cacheGrps.vendors = this.ckgVendors();
+        cacheGrps.reactAndDom = this.#ckgReactAndDom();
+        cacheGrps.reactBootstrap = this.#ckgReactBootstrap();
+        cacheGrps.bootstrap = this.#ckgBootstrap();
+        cacheGrps.mui = this.#ckgMui();
+        cacheGrps.vendors = this.#ckgVendors();
 
         return cacheGrps;
     }
+
     //ckg--->cache group key
-    ckgReactAndDom() {
+    #ckgReactAndDom() {
         return {
             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
             name: 'react&dom',
-            filename: 'js/oreon.[name].[contenthash].js',
+            filename: 'js/oreonnyx.[name].[contenthash].js',
             chunks: 'all',
             reuseExistingChunk: true,
         }
     }
 
-    ckgReactBootstrap() {
+    #ckgReactBootstrap() {
         return {
             test: /[\\/]node_modules[\\/](react-bootstrap)[\\/]/,
             name: 'reactBootstrap',
-            filename: 'js/oreon.[name].[contenthash].js',
+            filename: 'js/oreonnyx.[name].[contenthash].js',
             chunks: 'all',
             reuseExistingChunk: true
         }
     }
 
-    ckgMui() {
+    #ckgMui() {
         return {
             test: /[\\/]node_modules[\\/]((@mui.*)|(@emotion.*))[\\/]/,
             name: 'mui',
@@ -62,7 +63,7 @@ class Optimization {
         }
     }
 
-    ckgBootstrap() {
+    #ckgBootstrap() {
         return {
             test: /[\\/]node_modules[\\/](bootstrap)[\\/]/,
             name: 'bootstrap',
@@ -72,7 +73,7 @@ class Optimization {
         }
     }
 
-    ckgVendors() {
+    #ckgVendors() {
         return {
             test: /[\\/]node_modules[\\/]((?!react).*)[\\/]/,
             name: 'vendors',

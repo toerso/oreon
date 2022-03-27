@@ -24,6 +24,11 @@ class BrowserModules {
         this.module.rules = this.rules;
     }
 
+    setupSass() {
+        this.rules.push(this.rulesObj.sassRuleBrowser());
+        this.module.rules = this.rules;
+    }
+
     setupImageFile() {
         this.rules.push(this.rulesObj.imageFilesRule());
         this.module.rules = this.rules;

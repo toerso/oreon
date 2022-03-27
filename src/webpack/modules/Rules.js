@@ -1,6 +1,13 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Helper = require('./Helper');
 
 class Rules {
+    #HelperObj;
+
+    constructor() {
+        this.#HelperObj = new Helper();
+    }
+
     htmlRule() {
         return {
             test: /\.html$/,
@@ -47,41 +54,68 @@ class Rules {
         }
     }
 
+    sassRuleBrowser() {
+        return  {
+            test: /\.s[ac]ss$/i,
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        }
+    }
+
+    sassRuleServer() {
+        return  {
+            test: /\.s[ac]ss$/i,
+            use: [{
+                loader: MiniCssExtractPlugin.loader,
+                options: {
+                    emit: false
+                }
+            }, 'css-loader', 'sass-loader'],
+        }
+    }
+
     imageFilesRule() {
+        const {regex, filename} = this.#HelperObj.image();
+
         return {
-            test: /\.(png|jpe?g|svg|gif)$/,
-            type: "asset/resource",
+            test: regex,
+            type: this.#HelperObj.type.assetResource
         }
     }
 
     imageFileRuleSsr() {
+        const {regex, filename} = this.#HelperObj.image();
+
         return {
-            test: /\.(png|jpe?g|svg|gif)$/i,
-            type: "asset/resource",
+            test: regex,
+            type: this.#HelperObj.type.assetResource,
             generator: {
-                outputPath: '../../public/', //This property helps to emit the file to desire output folder relative to the current output path
-                filename: 'assets/images/croxo.[name].[contenthash][ext]'
+                outputPath: '../../public/assets', //This property helps to emit the file to desire output folder relative to the current output path
+                filename: filename
             }
         }
     }
 
     fontRule() {
+        const {regex, filename} = this.#HelperObj.font();
+
         return {
-            test: /\.(woff|woff2|eot|ttf|otf)$/i,
-            type: 'asset/resource',
+            test: regex,
+            type: this.#HelperObj.type.assetResource,
             generator: {
-                filename: 'fonts/[name].[contenthash][ext]'
+                filename: filename
             }
         }
     }
 
     fontRuleSsr() {
+        const {regex, filename} = this.#HelperObj.font();
+
         return {
-            test: /\.(woff|woff2|eot|ttf|otf)$/i,
-            type: 'asset/resource',
+            test: regex,
+            type: this.#HelperObj.type.assetResource,
             generator: {
-                outputPath: '../../public/',
-                filename: 'assets/fonts/[name].[contenthash][ext]'
+                outputPath: '../../public/assets',
+                filename: filename
             }
         }
     }

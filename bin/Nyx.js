@@ -50,7 +50,7 @@ class Nyx {
                 this.execute(cmd, mode, options);
             });
 
-        this.program.command("ssr <mode>").description("run server side rendering scripts")
+        this.program.command("ssr <mode>").description("run runtime side rendering scripts")
             .option('-W --watch', "watch mode helps you to prevent run command everytime", false)
             .action((mode, options, cmd) => {
                 this.execute(cmd, mode, options);
@@ -116,7 +116,6 @@ class Nyx {
                    process.exit(code);
                }
                }, optns);
-
     }
 
     ssrCmdConfig({mode, watch}) {
