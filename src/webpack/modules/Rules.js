@@ -6,6 +6,7 @@ class Rules {
 
     constructor() {
         this.#HelperObj = new Helper();
+        this.baseOutputDir = "assets";
     }
 
     htmlRule() {
@@ -78,7 +79,10 @@ class Rules {
 
         return {
             test: regex,
-            type: type
+            type: type,
+            generator: {
+                filename: filename
+            }
         }
     }
 
@@ -90,7 +94,7 @@ class Rules {
             type: type,
             generator: {
                 outputPath: '../../public/', //This property helps to emit the file to desire output folder relative to the current output path
-                filename: `assets/${filename}`
+                filename: `${this.baseOutputDir}/${filename}`
             }
         }
     }
@@ -114,8 +118,8 @@ class Rules {
             test: regex,
             type: type,
             generator: {
-                outputPath: '../../public/',
-                filename: `assets/${filename}`
+                outputPath: '../../public/', //This property helps to emit the file to desire output folder relative to the current output path
+                filename: `${this.baseOutputDir}/${filename}`
             }
         }
     }
@@ -139,7 +143,8 @@ class Rules {
             test: regex,
             type: type,
             generator: {
-                emit: false
+                outputPath: '../../public/', //This property helps to emit the file to desire output folder relative to the current output path
+                filename: `${this.baseOutputDir}/${filename}`
             }
         }
     }
@@ -157,13 +162,14 @@ class Rules {
     }
 
     videoRuleSsr() {
-        const {regex, type} = this.#HelperObj.video();
+        const {regex, type, filename} = this.#HelperObj.video();
 
         return {
             test: regex,
             type: type,
             generator: {
-                emit: false
+                outputPath: '../../public/', //This property helps to emit the file to desire output folder relative to the current output path
+                filename: `${this.baseOutputDir}/${filename}`
             }
         }
     }

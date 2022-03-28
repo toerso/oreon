@@ -38,8 +38,8 @@ class WebpackConfig {
     }
 
 
-    publicPath(hostname, dir) {
-        this.#PublicPath = `${hostname}${dir}`;
+    publicPath(hostname, dir = "") {
+        this.#PublicPath = `${hostname}/${dir}`;
     }
 
     devTool() {
@@ -59,8 +59,8 @@ class WebpackConfig {
         }
     }
 
-    async browserOutput(path, clean) {
-        const outputPath = this.file.resolve_path(path);
+    async browserOutput() {
+        const outputPath = this.file.resolve_path('public/assets');
 
         if(this.webpackConfig.target !== "web") throw Error("Target must be web :_(");
 
@@ -68,12 +68,12 @@ class WebpackConfig {
             publicPath: this.#PublicPath,
             path: outputPath,
             filename: `js/oreonnyx.[name].[${this.#Hash}].js`,
-            assetModuleFilename: `images/croxo.[name].[${this.#Hash}][ext]`,
-            clean: !!clean
+            clean: true
         }
     }
-    async serverOutput(path, clean) {
-        const outputPath = this.file.resolve_path(path);
+
+    async serverOutput() {
+        const outputPath = this.file.resolve_path('runtime/ssr');
 
         if(this.webpackConfig.target !== "node") throw Error("Target must be node :_(");
 
@@ -81,7 +81,7 @@ class WebpackConfig {
             publicPath: this.#PublicPath,
             path: outputPath,
             filename: `server.js`,
-            clean: !!clean
+            clean: true
         }
     }
 

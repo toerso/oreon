@@ -20,6 +20,10 @@ class File {
     resolve_path(filepath) {
         return path.resolve(this.APP_ROOT_PATH, filepath);
     }
+
+    extract_path(filepath, extractPart) {
+        return filepath.replace(extractPart, '');
+    }
 }
 
 

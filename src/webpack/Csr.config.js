@@ -8,9 +8,7 @@ class CsrConfig extends  CommonConfig{
 
     run() {
         const ClientSideConfig = new WebpackConfig();
-
-        //Exclude public dir from bop to set public path
-        const dirname = this.outputPath.replace("public", '');
+        const dirname = 'assets/'; //here dirname is essential because of setting publicPath
 
         //configuration of webpack for client side
         ClientSideConfig.mode(this.mode);
@@ -19,7 +17,7 @@ class CsrConfig extends  CommonConfig{
         ClientSideConfig.devTool();
         ClientSideConfig.publicPath(this.host, dirname);
         ClientSideConfig.entry(this.entryPath);
-        ClientSideConfig.browserOutput(this.outputPath, true);
+        ClientSideConfig.browserOutput();
         ClientSideConfig.browserModules();
         ClientSideConfig.browserPlugins();
         ClientSideConfig.optimization();
