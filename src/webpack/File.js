@@ -24,6 +24,13 @@ class File {
     extract_path(filepath, extractPart) {
         return filepath.replace(extractPart, '');
     }
+
+    extract_src_dir(_path) {
+        const regex = /(?<=.\/)(\w*)/i;
+        const match = _path.match(regex);
+
+        return match[0];
+    }
 }
 
 

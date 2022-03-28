@@ -10,7 +10,8 @@ class WebpackConfig {
     #PublicPath;
     #Hash;
     #ServerPluginObj;
-    #ExtraObj
+    #ExtraObj;
+    #entryPath;
 
     constructor() {
         this.webpackConfig = {};
@@ -47,6 +48,8 @@ class WebpackConfig {
     }
 
     entry(filepath) {
+        this.#entryPath = filepath;
+
         if(typeof(filepath) === "string") {
             this.webpackConfig.entry = filepath;//this.file.relative_path(filepath);
         }else {
@@ -111,10 +114,17 @@ class WebpackConfig {
     }
 
     //For browser content
-    browserPlugins() {
+    browserPlugins(props) {
+        let filename = `${this.file.extract_src_dir(this.#entryPath)}/main.oreon.php`;
+
+        if(props) {
+            if(props.ext === "html" && props.dir === "self") filename = `${this.file.extract_src_dir(this.#entryPath)}/index.html`;
+            else if(props.ext === "html" && props.dir === "dist") filename = "public/index.html";
+        }
+
         const propertiesOfHtmlWebpackPlugin = {
             template: "./template.html",
-            filename: 'view/view.oreon.php',
+            filename: filename,
             inject: 'body',
             scriptLoading: "defer",
         }

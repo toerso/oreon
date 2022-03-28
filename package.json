@@ -2,6 +2,7 @@
   "name": "oreonnyx",
   "version": "1.0.0",
   "description": "UI module bundler helper",
+  "keywords": ["oreonnyx", "webpack", "nyx" ],
   "main": "src/index.js",
   "bin": {
     "nyx": "bin/Nyx.js"
