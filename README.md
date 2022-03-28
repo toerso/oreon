@@ -4,7 +4,8 @@
 **oreonnyx** is a module bundler helper. It works with react js(vanilla js as well). If you want to use react js in your project then **oreonnyx** can help you to bundle your javascript code and assets both client side rendering and server side rendering.
 
 **Installation**: `npm install oreonnyx --save-dev` or `yarn add oreonnyx -D`
-#Example of usages:
+
+**Example** **of** **usages:**
 Before the get started with **oreonnyx** you have to do some important work to do.
 
 First, you have to create two files in your project root directory.
@@ -17,7 +18,7 @@ Second, you have to create a `template.html` file in your project root directory
 
 **oreonnyx** give two api `BrowserApi` and `ServerApi` for client side and server side module bundler.
 
-#BrowserApi:
+**BrowserApi:**
 `nyx.browser.js`
 ~~~~
 const {BrowserApi} = require('oreonnyx');
@@ -46,7 +47,7 @@ pass the `props` object as argument of `run(props)` method like this.
 
 If you want to bundle ssr code then you can use `ServerApi`
 
-#ServerApi:
+**ServerApi:**
 `nyx.server.js`
 ~~~~
 const {ServerApi} = require('oreonnyx');
@@ -93,6 +94,4 @@ Here,
 `nyx:prod` command bundle both csr and ssr code in `production`
 mode.
 
-Audio file support extensions(mp3|wav|aac|ac3|aif|aifc|aiff|au|caf|dts|flac|gsm|m4a|m4b|m4r|mka|mmf|mp2|mpa|oga|ogg|opus|ra|snd|voc|wma)
-
-Video file support extensions(3g2|3gp|asf|avi|f4v|flv|m2t|m3ts|m2v|m4v|mjpeg|mkv|mov|mp4|mpeg|mts|mxf|ogv|rm|swf|ts|vob|webm|wmv|wtv)
+**End**
