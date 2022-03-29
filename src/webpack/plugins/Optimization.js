@@ -37,7 +37,7 @@ class Optimization {
         return {
             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
             name: 'react&dom',
-            filename: 'js/oreonnyx.[name].[contenthash].js',
+            filename: 'js/oreonyx.[name].[contenthash].js',
             chunks: 'all',
             reuseExistingChunk: true,
         }
@@ -47,7 +47,7 @@ class Optimization {
         return {
             test: /[\\/]node_modules[\\/](react-bootstrap)[\\/]/,
             name: 'reactBootstrap',
-            filename: 'js/oreonnyx.[name].[contenthash].js',
+            filename: 'js/oreonyx.[name].[contenthash].js',
             chunks: 'all',
             reuseExistingChunk: true
         }
@@ -57,7 +57,7 @@ class Optimization {
         return {
             test: /[\\/]node_modules[\\/]((@mui.*)|(@emotion.*))[\\/]/,
             name: 'mui',
-            filename: 'js/oreonnyx.[name].[contenthash].js',
+            filename: 'js/oreonyx.[name].[contenthash].js',
             chunks: 'all',
             reuseExistingChunk: true
         }
@@ -67,7 +67,7 @@ class Optimization {
         return {
             test: /[\\/]node_modules[\\/](bootstrap)[\\/]/,
             name: 'bootstrap',
-            filename: 'js/oreonnyx.[name].[contenthash].js',
+            filename: 'js/oreonyx.[name].[contenthash].js',
             chunks: 'all',
             reuseExistingChunk: true
         }
@@ -77,7 +77,7 @@ class Optimization {
         return {
             test: /[\\/]node_modules[\\/]((?!react).*)[\\/]/,
             name: 'vendors',
-            filename: 'js/oreonnyx.[name].[contenthash].js',
+            filename: 'js/oreonyx.[name].[contenthash].js',
             chunks: 'all',
             reuseExistingChunk: true
         }

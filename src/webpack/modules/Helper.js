@@ -13,7 +13,7 @@ class Helper {
         return {
             regex: /\.(png|jpe?g|svg|gif)$/i,
             type: this.#type.assetResource,
-            filename: 'media/images/oreonnyx.[name].[contenthash][ext]'
+            filename: 'media/images/oreonyx.[name].[contenthash][ext]'
         };
     }
 
@@ -21,7 +21,7 @@ class Helper {
         return {
             regex: /\.(woff|woff2|eot|ttf|otf)$/i,
             type: this.#type.assetResource,
-            filename: 'fonts/oreonnyx.[name].[contenthash][ext]'
+            filename: 'fonts/oreonyx.[name].[contenthash][ext]'
         };
     }
 
@@ -29,7 +29,7 @@ class Helper {
         return {
             regex: /\.(mp3|wav|aac|ac3|aif|aifc|aiff|au|caf|dts|flac|gsm|m4a|m4b|m4r|mka|mmf|mp2|mpa|oga|ogg|opus|ra|snd|voc|wma)$/i,
             type: this.#type.assetResource,
-            filename: 'media/audio/oreonnyx.[name].[contenthash][ext]'
+            filename: 'media/audio/oreonyx.[name].[contenthash][ext]'
         };
     }
 
@@ -37,7 +37,7 @@ class Helper {
         return {
             regex: /\.(3g2|3gp|asf|avi|f4v|flv|m2t|m3ts|m2v|m4v|mjpeg|mkv|mov|mp4|mpeg|mts|mxf|ogv|rm|swf|ts|vob|webm|wmv|wtv)/i,
             type: this.#type.assetResource,
-            filename: 'media/video/oreonnyx.[name].[contenthash][ext]'
+            filename: 'media/video/oreonyx.[name].[contenthash][ext]'
         }
     }
 }

@@ -70,7 +70,7 @@ class WebpackConfig {
         this.webpackConfig.output = {
             publicPath: this.#PublicPath,
             path: outputPath,
-            filename: `js/oreonnyx.[name].[${this.#Hash}].js`,
+            filename: `js/oreonyx.[name].[${this.#Hash}].js`,
             clean: true
         }
     }
@@ -130,7 +130,7 @@ class WebpackConfig {
         }
 
         const propertiesOfMiniCssPlugin = {
-            filename: 'css/oreonnyx.[name].[contenthash].css'
+            filename: 'css/oreonyx.[name].[contenthash].css'
         }
 
         //setting plugins properties
@@ -141,7 +141,7 @@ class WebpackConfig {
     }
 
     serverPlugins() {
-        this.webpackConfig.plugins = this.#ServerPluginObj.miniCssExtractPlugin({filename: 'css/oreonnyx.[name].[contenthash].css'}).plugins;
+        this.webpackConfig.plugins = this.#ServerPluginObj.miniCssExtractPlugin({filename: 'css/oreonyx.[name].[contenthash].css'}).plugins;
     };
 
     //code splitting.............................

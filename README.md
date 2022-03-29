@@ -1,12 +1,12 @@
-# oreonnyx
+# oreonyx
 **Ui** module bundler helper.
 
-**oreonnyx** is a module bundler helper. It works with react js(vanilla js as well). If you want to use react js in your project then **oreonnyx** can help you to bundle your javascript code and assets both client side rendering and server side rendering.
+**oreonyx** is a module bundler helper. It works with react js(vanilla js as well). If you want to use react js in your project then **oreonyx** can help you to bundle your javascript code and assets both client side rendering and server side rendering.
 
-**Installation**: `npm install oreonnyx --save-dev` or `yarn add oreonnyx -D`
+**Installation**: `npm install @oreodusk/oreonyx --save-dev` or `yarn add @oreodusk/oreonyx -D`
 
 **Example** **of** **usages:**
-Before the get started with **oreonnyx** you have to do some important work to do.
+Before the get started with **oreonyx** you have to do some important work to do.
 
 First, you have to create two files in your project root directory.
 
@@ -16,12 +16,12 @@ First, you have to create two files in your project root directory.
 
 Second, you have to create a `template.html` file in your project root directory.
 
-**oreonnyx** give two api `BrowserApi` and `ServerApi` for client side and server side module bundler.
+**oreonyx** give two api `BrowserApi` and `ServerApi` for client side and server side module bundler.
 
 **BrowserApi:**
 `nyx.browser.js`
 ~~~~
-const {BrowserApi} = require('oreonnyx');
+const {BrowserApi} = require('oreonyx');
 
 //more control over markup(html)
 
@@ -35,7 +35,7 @@ const {BrowserApi} = require('oreonnyx');
 module.exports = BrowserApi.entry('./view/js/browser.js')
     .setHost('http://localhost:5050').setMode('development').run();
 ~~~~
-By default, **oreonnyx** generates markup with php extension in `self` or entry directory that you had passed.
+By default, **oreonyx** generates markup with php extension in `self` or entry directory that you had passed.
 
 To control over html markup you can create above `props` object. `props` object has `markUpControl` property which is also an object
 with two properties `ext and dir`.
@@ -50,7 +50,7 @@ If you want to bundle ssr code then you can use `ServerApi`
 **ServerApi:**
 `nyx.server.js`
 ~~~~
-const {ServerApi} = require('oreonnyx');
+const {ServerApi} = require('oreonyx');
 
 //----------------------------look :)------------------------------------//
 //      Here you've to give the entry path of server-side-rendering     //
@@ -65,7 +65,7 @@ This `ServerApi` bundle your code and put it on  the `runtime/ssr/server.js` fil
 
 **Yeah** here all about it is. You don't need to manually setup anything with `webpack`.
 
-**Oh,** by the way **oreonnyx** has a nice command line tool called `nyx`.
+**Oh,** by the way **oreonyx** has a nice command line tool called `nyx`.
 
 If you wanna use `nyx` then you have to create some script in your project package.json file.
 ~~~~

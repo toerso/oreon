@@ -1,8 +1,13 @@
 {
-  "name": "oreonnyx",
+  "name": "@oreodusk/oreonyx",
   "version": "1.0.0",
   "description": "UI module bundler helper",
-  "keywords": ["oreon","oreonnyx", "webpack", "nyx" ],
+  "keywords": [
+    "oreodusk",
+    "oreonnyx",
+    "webpack",
+    "nyx"
+  ],
   "main": "src/index.js",
   "bin": {
     "nyx": "bin/Nyx.js"
