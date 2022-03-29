@@ -11,9 +11,10 @@ const {createSpinner} = require('nanospinner');
 //const sleep = (ms=1000) => new Promise(resolve => setTimeout(resolve, ms));
 
 class Nyx {
-    START_MESSAGE_DEFAULT_DEV = "Execution running in DEVELOPMENT mode";
-    DEV_MSG_WATCH = "Execution running in DEVELOPMENT and WATCHING mode... "
-    FINAL_PROD_MSG = "Execution running in FINAL PRODUCTION mode...";
+    START_MESSAGE_DEFAULT_DEV = "Execution running in DEVELOPMENT mode....";
+    DEV_MSG_WATCH = "Execution running in DEVELOPMENT and WATCHING mode....";
+    DEV_SERVER_MSG = "Development server running on port: 5050....";
+    FINAL_PROD_MSG = "Execution running in FINAL PRODUCTION mode....";
 
     constructor() {
         this.boot = false;
@@ -58,6 +59,7 @@ class Nyx {
 
         this.program.command("csr <mode>").description("run client side rendering scripts")
             .option('-W --watch', "watch mode helps you to prevent run command everytime", false)
+            .option('-S --serve', "start dev server for client side.", false)
             .action((mode, options, cmd) => {
                 this.execute(cmd, mode, options);
             });
@@ -68,11 +70,16 @@ class Nyx {
     async execute(cmd, mode="prod", options= {}) {
         const name = cmd.name();
         let cmdScript = null;
+        //
+        // console.log(options);
+        // return;
+
         //this will help us to create spinner
         const optns = {
             cmdname: name,
             mode: mode,
-            watch: options.watch
+            watch: options.watch,
+            serve: options.serve
         }
         //checking command
         if (name === "build") {
@@ -94,7 +101,9 @@ class Nyx {
             //true boot for execution
             this.boot = true;
         }else if(name === "csr") {
-            this.browserCmdSript.push("webpack", "--config", this.browScriptFile);
+            //checking whether serve option is passed or not
+            optns.serve ? this.browserCmdSript.push("webpack-dev-server", "--config", this.browScriptFile) : this.browserCmdSript.push("webpack", "--config", this.browScriptFile);
+
             this.csrCmdConfig(optns);
 
             cmdScript = this.browserCmdSript.join(" ");
@@ -161,12 +170,15 @@ class Nyx {
     }
 
     spawnListener(optns) {
-        const {cmdname, mode, watch} = optns;
+        const {cmdname, mode, watch, serve} = optns;
 
         if(cmdname === "build" || cmdname === "ssr" || cmdname === "csr") {
             if(mode === "dev") {
+
                 if(watch) this.cmdSpinner(this.DEV_MSG_WATCH);
+                else if(serve) this.cmdSpinner(this.DEV_SERVER_MSG);
                 else this.cmdSpinner(this.START_MESSAGE_DEFAULT_DEV);
+
             }else if(mode === "prod") {
                 this.cmdSpinner(this.FINAL_PROD_MSG);
             }

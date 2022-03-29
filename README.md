@@ -21,7 +21,7 @@ Second, you have to create a `template.html` file in your project root directory
 **BrowserApi:**
 `nyx.browser.js`
 ~~~~
-const {BrowserApi} = require('oreonyx');
+const {BrowserApi} = require('@oreodusk/oreonyx');
 
 //more control over markup(html)
 
@@ -29,7 +29,8 @@ const {BrowserApi} = require('oreonyx');
     markUpControl: {
         ext: 'html',
         dir: 'dist' 
-    }
+    },
+    devServer: true //if you want to start development server
 }*/
 
 module.exports = BrowserApi.entry('./view/js/browser.js')
@@ -41,7 +42,7 @@ To control over html markup you can create above `props` object. `props` object 
 with two properties `ext and dir`.
 
 `ext` means extension. You can use `html or php` as you like.
-`dir` means directory where should markup file will go to. It has two options `self  and dist`. If you choose to `dist` then output markup file goes to `public` directory. A last,
+`dir` means directory where should markup file will go to. It has two options `self  and dist`. If you choose to `dist` then output markup file goes to `public` directory. `props` object has also `devServer` boolean property to start development server. A last,
 
 pass the `props` object as argument of `run(props)` method like this.
 
@@ -50,7 +51,7 @@ If you want to bundle ssr code then you can use `ServerApi`
 **ServerApi:**
 `nyx.server.js`
 ~~~~
-const {ServerApi} = require('oreonyx');
+const {ServerApi} = require('@oreodusk/oreonyx');
 
 //----------------------------look :)------------------------------------//
 //      Here you've to give the entry path of server-side-rendering     //
@@ -73,6 +74,7 @@ If you wanna use `nyx` then you have to create some script in your project packa
     "build:dev": "nyx build dev",
     "build:ssr": "nyx ssr dev",
     "build:csr": "nyx csr dev",
+    "serve": "nyx csr dev --serve",
     "build:ssr:watch": "nyx ssr dev --watch",
     "build:csr:watch": "nyx csr dev --watch",
     "nyx:prod": "nyx build prod"
@@ -86,6 +88,8 @@ Here,
 `build:ssr` command only bundle your server side code in `development` mode.
 
 `build:csr` command only bundle your client side code in `development` mode.
+
+`serve` command only bundle your client side code in `development` mode and start development server.
 
 `build:ssr:watch` command only bundle your server side code in `watch` mode and in `development` mode.
 

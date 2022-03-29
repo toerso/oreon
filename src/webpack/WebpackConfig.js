@@ -11,7 +11,8 @@ class WebpackConfig {
     #Hash;
     #ServerPluginObj;
     #ExtraObj;
-    #entryPath;
+    #EntryPath;
+    #Host;
 
     constructor() {
         this.webpackConfig = {};
@@ -40,6 +41,7 @@ class WebpackConfig {
 
 
     publicPath(hostname, dir = "") {
+        this.#Host = hostname;
         this.#PublicPath = `${hostname}/${dir}`;
     }
 
@@ -48,7 +50,7 @@ class WebpackConfig {
     }
 
     entry(filepath) {
-        this.#entryPath = filepath;
+        this.#EntryPath = filepath;
 
         if(typeof(filepath) === "string") {
             this.webpackConfig.entry = filepath;//this.file.relative_path(filepath);
@@ -115,10 +117,10 @@ class WebpackConfig {
 
     //For browser content
     browserPlugins(props) {
-        let filename = `${this.file.extract_src_dir(this.#entryPath)}/main.oreon.php`;
+        let filename = `${this.file.extract_src_dir(this.#EntryPath)}/main.oreon.php`;
 
         if(props) {
-            if(props.ext === "html" && props.dir === "self") filename = `${this.file.extract_src_dir(this.#entryPath)}/index.html`;
+            if(props.ext === "html" && props.dir === "self") filename = `${this.file.extract_src_dir(this.#EntryPath)}/index.html`;
             else if(props.ext === "html" && props.dir === "dist") filename = "public/index.html";
         }
 
@@ -143,6 +145,20 @@ class WebpackConfig {
     serverPlugins() {
         this.webpackConfig.plugins = this.#ServerPluginObj.miniCssExtractPlugin({filename: 'css/oreonyx.[name].[contenthash].css'}).plugins;
     };
+
+    devServer(devserver) {
+            if(!devserver) return;
+
+            this.webpackConfig.devServer = {
+                static: {
+                    directory: this.file.resolve_path('public')
+                },
+                host: "localhost",
+                port: 5050,
+                hot: true,
+                open: true
+            }
+    }
 
     //code splitting.............................
     optimization() {

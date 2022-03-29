@@ -6,9 +6,7 @@ class CsrConfig extends  CommonConfig{
         super('development', "http://localhost:5050");
     }
 
-    run(props) {
-        const condition = !!props;
-
+    run(props={}) {
         const ClientSideConfig = new WebpackConfig();
         const dirname = 'assets/'; //here dirname is essential because of setting publicPath
 
@@ -21,7 +19,8 @@ class CsrConfig extends  CommonConfig{
         ClientSideConfig.entry(this.entryPath);
         ClientSideConfig.browserOutput();
         ClientSideConfig.browserModules();
-        ClientSideConfig.browserPlugins(condition ? props.markUpControl : null);
+        ClientSideConfig.browserPlugins(props.hasOwnProperty('markUpControl') ? props.markUpControl : false);
+        ClientSideConfig.devServer(props.hasOwnProperty('devServer') ? props.devServer : false);
         ClientSideConfig.optimization();
         ClientSideConfig.resolve(['.js', '.jsx', '.ts', '.tsx']);
 
