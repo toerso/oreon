@@ -48,6 +48,11 @@ class ServerModules {
         this.rules.push(this.rulesObj.videoRuleSsr());
         this.module.rules = this.rules;
     }
+
+    setupSsrStripBlock() {
+        this.rules.push(this.rulesObj.ssrStripBlock());
+        this.module.rules = this.rules;
+    }
 }
 
 module.exports = ServerModules;

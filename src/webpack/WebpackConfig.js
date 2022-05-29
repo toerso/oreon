@@ -112,12 +112,13 @@ class WebpackConfig {
         this.serverModulesObj.setupFont();
         this.serverModulesObj.setupAudio();
         this.serverModulesObj.setupVideo();
+        this.serverModulesObj.setupSsrStripBlock();
         this.webpackConfig.module = this.serverModulesObj.module;
     }
 
     //For browser content
     browserPlugins(props) {
-        let filename = `${this.file.extract_src_dir(this.#EntryPath)}/main.oreon.php`;
+        let filename = `${this.file.extract_src_dir(this.#EntryPath)}/main.croxo.php`;
 
         if(props) {
             if(props.ext === "html" && props.dir === "self") filename = `${this.file.extract_src_dir(this.#EntryPath)}/index.html`;

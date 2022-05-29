@@ -25,7 +25,7 @@ class Rules {
                     modules: {
                         auto: true,
                         mode: 'local',
-                        localIdentName: '[name]__[local]--[hash:base64:15]__oreon',
+                        localIdentName: '[name]__[local]--[hash:base64:30]__mechanix',
                     }
                 }
             }],
@@ -48,7 +48,7 @@ class Rules {
                         modules: {
                             auto: true,
                             mode: 'local',
-                            localIdentName: '[name]__[local]--[hash:base64:15]__oreon',
+                            localIdentName: '[name]__[local]--[hash:base64:30]__mechanix',
                         }
                     }
             }],
@@ -171,6 +171,23 @@ class Rules {
                 outputPath: '../../public/', //This property helps to emit the file to desire output folder relative to the current output path
                 filename: `${this.baseOutputDir}/${filename}`
             }
+        }
+    }
+
+    ssrStripBlock() {
+        return {
+            test: /\.jsx?$/,
+            enforce: 'pre',
+            exclude: /(node_modules|bower_components|\.spec\.js)/,
+            use: [
+                {
+                    loader: 'webpack-strip-block',
+                    options: {
+                        start: 'SERVERSIDE-ONLY: START',
+                        end: 'SERVERSIDE-ONLY:END'
+                    }
+                }
+            ]
         }
     }
 
