@@ -13,7 +13,8 @@
     "nyx": "bin/Nyx.js"
   },
   "scripts": {
-      "prepublish": "npm version minor --force",
+      "prepublish:patch": "npm version patch --force",
+      "prepublish:minor": "npm version minor --force",
       "publish:public": "npm publish --access public"
   },
   "repository": {
